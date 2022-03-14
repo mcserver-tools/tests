@@ -27,13 +27,11 @@ def _recv(sock):
 
     return _bytes_to_string(sock.recv(4096))
 
-@staticmethod
 def _string_to_bytes(input_text):
     """Convert string to bytes object"""
 
     return bytes(input_text, 'utf-8')
 
-@staticmethod
 def _bytes_to_string(input_bytes):
     """Convert bytes object to string"""
 

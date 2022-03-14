@@ -4,6 +4,7 @@ from threading import Thread
 from time import sleep
 
 new_dir = __file__.rsplit("\\", maxsplit=2)[0] + "\\pingserver"
+print("Full path to the pingserver folder: " + new_dir)
 
 sys.path.append(new_dir)
 

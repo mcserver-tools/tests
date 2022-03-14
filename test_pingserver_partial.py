@@ -1,7 +1,5 @@
 import sys
 import importlib.util
-from threading import Thread
-from time import sleep
 
 new_dir = __file__.replace("\\", "/").rsplit("/", maxsplit=2)[0] + "/pingserver"
 print("Full path to the pingserver folder: " + new_dir)
@@ -16,16 +14,3 @@ def test_increase_address():
     start = "23.42.0.0"
     increased = "23.43.0.0"
     assert increased == server_module.Server._increase_address(start)
-
-def test_write_to_db():
-    server_module.Server(True)
-
-    Thread(target=server_module.INSTANCE._write_to_db, daemon=True).start()
-
-    server_module.INSTANCE.add_to_db.append("23.224.25.34")
-    server_module.INSTANCE.add_to_db.append("32.242.135.44")
-    server_module.INSTANCE.add_to_db.append("223.64.74.24")
-
-    sleep(10)
-
-    assert server_module.INSTANCE.db_manager.get_addresses() == ["23.224.25.34", "32.242.135.44", "223.64.74.24"]

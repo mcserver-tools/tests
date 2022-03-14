@@ -11,6 +11,10 @@ def test_get_request():
     sleep(3)
 
     assert _get_address(local_address) == "1.1.0.0"
+    assert _get_address(local_address) == "1.2.0.0"
+    assert _get_address(local_address) == "1.3.0.0"
+    assert _get_address(local_address) == "1.4.0.0"
+    assert _get_address(local_address) == "1.5.0.0"
 
 def _get_address(local_address):
     sock = create_connection((local_address, 20005))

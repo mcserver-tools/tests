@@ -5,13 +5,13 @@ from socket import create_connection
 
 def test_get_request():
     main_file = __file__.replace("\\", "/").rsplit("/", maxsplit=2)[0] + "/pingserver/main.py"
-    Thread(target=os.system, args=("python3 " + main_file,), daemon=True).start()
+    Thread(target=os.system, args=("python3", main_file, "-a", "172.18.0.2",), daemon=True).start()
     sleep(3)
 
     assert _get_address() == "1.1.0.0"
 
 def _get_address():
-    sock = create_connection(("ableytner.ddns.net", 20005))
+    sock = create_connection(("172.18.0.2", 20005))
     _send(sock, "GET address")
     return _recv(sock)
 

@@ -12,10 +12,6 @@ spec = importlib.util.spec_from_file_location("server", new_dir + "/server.py")
 server_module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(server_module)
 
-spec = importlib.util.spec_from_file_location("db_manager", new_dir + "/db_manager.py")
-db_module = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(db_module)
-
 def test_increase_address():
     start = "23.42.0.0"
     increased = "23.43.0.0"
@@ -32,4 +28,4 @@ def test_write_to_db():
 
     sleep(10)
 
-    assert db_module.DBManager().get_addresses() == ["23.224.25.34", "32.242.135.44", "223.64.74.24"]
+    assert server_module.INSTANCE.db_manager.get_addresses() == ["23.224.25.34", "32.242.135.44", "223.64.74.24"]

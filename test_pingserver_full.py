@@ -1,17 +1,19 @@
 import os
+import socket
 from threading import Thread
 from time import sleep
 from socket import create_connection
 
 def test_get_request():
+    local_address = socket.gethostbyname(socket.gethostname())
     main_file = __file__.replace("\\", "/").rsplit("/", maxsplit=2)[0] + "/pingserver/main.py"
-    Thread(target=os.system, args=("python3", main_file, "-a", "172.18.0.2",), daemon=True).start()
+    Thread(target=os.system, args=("python3", main_file, "-a", local_address,), daemon=True).start()
     sleep(3)
 
-    assert _get_address() == "1.1.0.0"
+    assert _get_address(local_address) == "1.1.0.0"
 
-def _get_address():
-    sock = create_connection(("172.18.0.2", 20005))
+def _get_address(local_address):
+    sock = create_connection((local_address, 20005))
     _send(sock, "GET address")
     return _recv(sock)
 

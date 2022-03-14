@@ -7,7 +7,7 @@ from socket import create_connection
 def test_get_request():
     local_address = socket.gethostbyname(socket.gethostname())
     main_file = __file__.replace("\\", "/").rsplit("/", maxsplit=2)[0] + "/pingserver/main.py"
-    Thread(target=os.system, args=("python3", main_file, "-a", local_address,), daemon=True).start()
+    Thread(target=os.system, args=("python3 " + main_file + " -a " + local_address,), daemon=True).start()
     sleep(3)
 
     assert _get_address(local_address) == "1.1.0.0"

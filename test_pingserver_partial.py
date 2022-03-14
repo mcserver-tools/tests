@@ -22,6 +22,8 @@ def test_increase_address():
     assert increased == server_module.Server._increase_address(start)
 
 def test_write_to_db():
+    server_module.INSTANCE.db_manager = db_module.DBManager(in_memory=True)
+
     Thread(target=server_module.INSTANCE._write_to_db, daemon=True).start()
 
     server_module.INSTANCE.add_to_db.append("23.224.25.34")

@@ -30,4 +30,4 @@ def test_write_to_db():
 
     sleep(10)
 
-    assert db_module.get_addresses() == ["23.224.25.34", "32.242.135.44", "223.64.74.24"]
+    assert db_module.DBManager().get_addresses() == ["23.224.25.34", "32.242.135.44", "223.64.74.24"]

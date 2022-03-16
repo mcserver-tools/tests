@@ -1,13 +1,17 @@
+"""Module containing full tests for the pingserver"""
+
 import os
-import socket
 from threading import Thread
 from time import sleep
-from socket import create_connection
+from socket import create_connection, gethostbyname, gethostname
 
 def test_get_request():
-    local_address = socket.gethostbyname(socket.gethostname())
+    """test the pingserver by getting multiple addresses"""
+
+    local_address = gethostbyname(gethostname())
     main_file = __file__.replace("\\", "/").rsplit("/", maxsplit=2)[0] + "/pingserver/main.py"
-    Thread(target=os.system, args=("python3 " + main_file + " -a " + local_address,), daemon=True).start()
+    Thread(target=os.system, args=("python3 " + main_file + " -a " + local_address,),
+           daemon=True).start()
     sleep(3)
 
     assert _get_address(local_address) == "1.1.0.0"
@@ -17,6 +21,8 @@ def test_get_request():
     assert _get_address(local_address) == "1.5.0.0"
 
 def _get_address(local_address):
+    """Get one address from ther pingserver"""
+
     sock = create_connection((local_address, 20005))
     _send(sock, "GET address")
     return _recv(sock)
